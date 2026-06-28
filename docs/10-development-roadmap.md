@@ -6,6 +6,7 @@
 - 创建 `ji-server`
 - 接入 Tailwind、shadcn 风格组件、Zustand、TanStack Query
 - 接入 MySQL、MyBatis-Plus、Sa-Token
+- 完成 [从零创建项目](11-create-project-from-zero.md) 的第一轮验收
 
 ## Phase 2: Memo 最小闭环
 
@@ -64,4 +65,3 @@
 - 日志和审计查询
 - 离线队列
 - 发布安装包
-

@@ -2,7 +2,7 @@
 
 ## 1. 创建 Tauri 项目
 
-```bash
+```powershell
 npm create tauri-app@latest ji-desktop
 cd ji-desktop
 npm install
@@ -16,7 +16,7 @@ npm install
 
 ## 2. 安装前端依赖
 
-```bash
+```powershell
 npm install zustand @tanstack/react-query @tanstack/react-virtual axios lucide-react clsx tailwind-merge
 npm install @radix-ui/react-select @radix-ui/react-popover @radix-ui/react-tabs @radix-ui/react-context-menu @radix-ui/react-alert-dialog @radix-ui/react-tooltip
 npm install @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
@@ -24,7 +24,7 @@ npm install @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
 
 ## 3. 安装 Tailwind
 
-```bash
+```powershell
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
@@ -65,13 +65,12 @@ src/components/ui/
 
 ## 6. 第一次运行
 
-```bash
+```powershell
 npm run tauri dev
 ```
 
 如果只看前端 UI：
 
-```bash
+```powershell
 npm run dev
 ```
-

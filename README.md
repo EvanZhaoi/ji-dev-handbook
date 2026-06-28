@@ -46,7 +46,9 @@ ji-dev-handbook/
 │   ├── 07-realtime-and-notification.md
 │   ├── 08-database-and-api.md
 │   ├── 09-testing-and-release.md
-│   └── 10-development-roadmap.md
+│   ├── 10-development-roadmap.md
+│   ├── 11-create-project-from-zero.md
+│   └── 12-open-source-components.md
 ├── checklists/
 │   ├── daily-dev-checklist.md
 │   └── feature-done-checklist.md
@@ -58,8 +60,9 @@ ji-dev-handbook/
 1. 先读 [项目概览](docs/00-project-overview.md)
 2. 再按 [环境搭建](docs/01-environment-setup.md) 准备电脑
 3. 按 [桌面端脚手架](docs/03-desktop-scaffold.md) 创建 Tauri 项目
-4. 按 [UI 系统](docs/04-ui-system.md) 搭好界面风格
-5. 逐步实现 Memo、认证、通知、数据库和发布流程
+4. 按 [从零创建项目](docs/11-create-project-from-zero.md) 创建本地项目
+5. 按 [UI 系统](docs/04-ui-system.md) 搭好界面风格
+6. 逐步实现 Memo、认证、通知、数据库和发布流程
 
 ## 当前第一版覆盖范围
 
