@@ -4,21 +4,21 @@
 
 前端：
 
-```bash
+```powershell
 npm run build
 git diff --check
 ```
 
 后端：
 
-```bash
+```powershell
 mvn test
 git diff --check
 ```
 
 数据库：
 
-```bash
+```powershell
 mysql -uroot -p < src/main/resources/db/schema-mysql.sql
 ```
 
@@ -30,7 +30,10 @@ mysql -uroot -p < src/main/resources/db/schema-mysql.sql
 - 全局快捷键是否能唤出主界面
 - 快速 Memo 窗口是否能新增 Memo
 - 系统通知是否出现在 Windows 右下角
+- 系统通知是否进入 Windows 通知中心
 - 点击通知是否能打开指定 Memo
+- Windows 深色/浅色主题切换后应用是否跟随
+- Windows 显示缩放 150% / 200% 下布局是否正常
 
 ## Memo 回归测试
 
@@ -52,4 +55,4 @@ mysql -uroot -p < src/main/resources/db/schema-mysql.sql
 - 浅色/深色/跟随系统正常
 - 通知权限正常
 - 快捷键冲突有提示
-
+- 安装包在未安装开发环境的 Windows 电脑上可运行
