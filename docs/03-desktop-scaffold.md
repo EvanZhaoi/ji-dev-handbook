@@ -3,30 +3,30 @@
 ## 1. 创建 Tauri 项目
 
 ```powershell
-npm create tauri-app@latest ji-desktop
+pnpm create tauri-app@latest ji-desktop
 cd ji-desktop
-npm install
+pnpm install
 ```
 
 推荐选择：
 
 - Frontend: React
 - Language: TypeScript
-- Package manager: npm 或 pnpm
+- Package manager: pnpm
 
 ## 2. 安装前端依赖
 
 ```powershell
-npm install zustand @tanstack/react-query @tanstack/react-virtual axios lucide-react clsx tailwind-merge
-npm install @radix-ui/react-select @radix-ui/react-popover @radix-ui/react-tabs @radix-ui/react-context-menu @radix-ui/react-alert-dialog @radix-ui/react-tooltip
-npm install @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
+pnpm add zustand @tanstack/react-query @tanstack/react-virtual axios lucide-react clsx tailwind-merge
+pnpm add @radix-ui/react-select @radix-ui/react-popover @radix-ui/react-tabs @radix-ui/react-context-menu @radix-ui/react-alert-dialog @radix-ui/react-tooltip
+pnpm add @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
 ```
 
 ## 3. 安装 Tailwind
 
 ```powershell
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+pnpm add -D tailwindcss postcss autoprefixer
+pnpm exec tailwindcss init -p
 ```
 
 ## 4. 增加 shadcn 风格基础组件
@@ -66,11 +66,11 @@ src/components/ui/
 ## 6. 第一次运行
 
 ```powershell
-npm run tauri dev
+pnpm tauri dev
 ```
 
 如果只看前端 UI：
 
 ```powershell
-npm run dev
+pnpm dev
 ```

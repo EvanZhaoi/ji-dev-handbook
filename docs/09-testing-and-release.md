@@ -5,7 +5,7 @@
 前端：
 
 ```powershell
-npm run build
+pnpm build
 git diff --check
 ```
 

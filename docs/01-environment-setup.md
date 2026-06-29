@@ -11,7 +11,7 @@
 - Java 21，建议通过 Scoop 或 jabba 管理版本
 - Rust stable
 - MySQL 8.x
-- pnpm 或 npm
+- pnpm
 - VS Code / IntelliJ IDEA
 - Microsoft C++ Build Tools
 - Microsoft Edge WebView2 Runtime
@@ -24,7 +24,9 @@
 nvm install 22
 nvm use 22
 node -v
-npm -v
+corepack enable
+corepack prepare pnpm@latest --activate
+pnpm -v
 ```
 
 建议项目根目录固定 Node 版本：
@@ -64,7 +66,7 @@ cargo --version
 安装 Tauri 依赖：
 
 ```powershell
-npm create tauri-app@latest
+pnpm create tauri-app@latest
 ```
 
 Windows 需要额外安装：
@@ -105,7 +107,7 @@ spring:
 ```powershell
 git --version
 node -v
-npm -v
+pnpm -v
 java -version
 rustc --version
 cargo --version

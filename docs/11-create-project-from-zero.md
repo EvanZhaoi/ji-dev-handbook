@@ -28,7 +28,7 @@ cd C:\Documents\VSCodeProjects
 ```powershell
 git --version
 node -v
-npm -v
+pnpm -v
 java -version
 rustc --version
 cargo --version
@@ -38,15 +38,15 @@ mysql --version
 ## 2. 创建桌面端项目
 
 ```powershell
-npm create tauri-app@latest ji-desktop
+pnpm create tauri-app@latest ji-desktop
 cd ji-desktop
-npm install
+pnpm install
 ```
 
 推荐选择：
 
 ```text
-Package manager: npm
+Package manager: pnpm
 UI template: React
 Language: TypeScript
 ```
@@ -54,7 +54,7 @@ Language: TypeScript
 首次启动：
 
 ```powershell
-npm run tauri dev
+pnpm tauri dev
 ```
 
 如果 Tauri 可以打开一个空窗口，说明桌面端基础环境正常。
@@ -62,18 +62,18 @@ npm run tauri dev
 ## 3. 安装桌面端依赖
 
 ```powershell
-npm install axios zustand @tanstack/react-query @tanstack/react-virtual
-npm install lucide-react clsx tailwind-merge class-variance-authority
-npm install @radix-ui/react-select @radix-ui/react-popover @radix-ui/react-tabs
-npm install @radix-ui/react-context-menu @radix-ui/react-alert-dialog @radix-ui/react-tooltip
-npm install @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
+pnpm add axios zustand @tanstack/react-query @tanstack/react-virtual
+pnpm add lucide-react clsx tailwind-merge class-variance-authority
+pnpm add @radix-ui/react-select @radix-ui/react-popover @radix-ui/react-tabs
+pnpm add @radix-ui/react-context-menu @radix-ui/react-alert-dialog @radix-ui/react-tooltip
+pnpm add @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
 ```
 
 安装 Tailwind：
 
 ```powershell
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+pnpm add -D tailwindcss postcss autoprefixer
+pnpm exec tailwindcss init -p
 ```
 
 建议先提交一次：
@@ -230,7 +230,7 @@ mkdir src\main\resources\db
 
 ```powershell
 cd C:\Documents\VSCodeProjects\ji-desktop
-npm run build
+pnpm build
 ```
 
 后端：

@@ -19,7 +19,7 @@
 
 提交前：
 
-- [ ] 前端 `npm run build`
+- [ ] 前端 `pnpm build`
 - [ ] 后端 `mvn test`
 - [ ] `git diff --check`
 - [ ] 手动测试主要流程
