@@ -72,8 +72,33 @@ pnpm add @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
 安装 Tailwind：
 
 ```powershell
-pnpm add -D tailwindcss postcss autoprefixer
-pnpm exec tailwindcss init -p
+pnpm add tailwindcss @tailwindcss/vite
+```
+
+Tailwind v4 以后，Vite 项目推荐使用 `@tailwindcss/vite` 插件，不再执行旧版的 `tailwindcss init -p`。
+
+修改 `vite.config.ts`：
+
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+创建或修改全局样式文件，例如 `src/styles/globals.css`：
+
+```css
+@import "tailwindcss";
+```
+
+然后在 `src/main.tsx` 中引入：
+
+```ts
+import "./styles/globals.css";
 ```
 
 建议先提交一次：
@@ -247,4 +272,3 @@ mvn test
 - 后端 test 通过。
 - MySQL 中能看到 `ji` 数据库。
 - 两个项目都已经完成第一次 Git commit。
-

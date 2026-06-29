@@ -25,9 +25,36 @@ pnpm add @milkdown/crepe @milkdown/plugin-diagram @milkdown/utils mermaid
 ## 3. 安装 Tailwind
 
 ```powershell
-pnpm add -D tailwindcss postcss autoprefixer
-pnpm exec tailwindcss init -p
+pnpm add tailwindcss @tailwindcss/vite
 ```
+
+Tailwind v4 以后，Vite 项目推荐直接使用 `@tailwindcss/vite` 插件，不再执行旧版的 `tailwindcss init -p`。
+
+修改 `vite.config.ts`：
+
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+在全局样式文件中引入 Tailwind，例如 `src/styles/globals.css`：
+
+```css
+@import "tailwindcss";
+```
+
+然后在 `src/main.tsx` 中引入全局样式：
+
+```ts
+import "./styles/globals.css";
+```
+
+如果 Windows 提示 `tailwindcss 不是内部或外部命令`，说明你正在执行旧版 CLI 初始化命令。当前手册按 Tailwind v4 最新方式走 Vite 插件集成，不需要全局安装 Tailwind，也不需要生成 `tailwind.config.js` 和 `postcss.config.js`。
 
 ## 4. 增加 shadcn 风格基础组件
 

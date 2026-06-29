@@ -13,6 +13,8 @@
 
 ## 色彩和布局
 
+Tailwind 使用 v4 最新集成方式：安装 `tailwindcss @tailwindcss/vite`，在 Vite 插件中启用 Tailwind，并在全局 CSS 中写入 `@import "tailwindcss";`。不要继续使用旧版 `tailwindcss init -p` 流程。
+
 使用 CSS 变量管理主题：
 
 ```css
@@ -87,4 +89,3 @@
 │       │              │                       │
 └───────┴──────────────┴───────────────────────┘
 ```
-
