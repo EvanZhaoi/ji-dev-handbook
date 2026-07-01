@@ -46,17 +46,7 @@ pnpm exec tailwindcss init -p
 
 如果 Windows 提示 `tailwindcss 不是内部或外部命令`，通常就是因为执行了旧版 CLI 初始化命令。本项目使用 Vite 插件集成，不需要全局安装 Tailwind。
 
-修改 `vite.config.ts`：
-
-```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-});
-```
+Tailwind 的 Vite 插件会在第 4 节和路径别名一起配置。不要在多个地方重复改 `vite.config.ts`，否则后面复制代码时容易把前面的配置覆盖掉。
 
 ## 3. 创建目录
 
@@ -84,15 +74,17 @@ src/
 | `styles` | 全局样式、字体、主题变量 |
 | `lib` | `cn` 等通用工具函数，shadcn 默认会生成到这里 |
 
-## 4. 配置路径别名
+## 4. 配置 Vite 和路径别名
 
-shadcn 生成的组件通常会使用 `@/components`、`@/lib/utils` 这类路径别名。先安装 Node path 类型：
+这里一次性配置 Tailwind v4 的 Vite 插件和 `@` 路径别名。shadcn 生成的组件通常会使用 `@/components`、`@/lib/utils` 这类导入路径，所以别名要在初始化 shadcn 前准备好。
+
+先安装 Node path 类型：
 
 ```powershell
 pnpm add -D @types/node
 ```
 
-修改 `vite.config.ts`：
+修改 `vite.config.ts`，最终保持下面这个版本：
 
 ```ts
 import path from "node:path";
@@ -175,6 +167,8 @@ pnpm add -D prettier prettier-plugin-tailwindcss
 
 `tailwindStylesheet` 是 Tailwind v4 项目需要的配置，指向包含 `@import "tailwindcss";` 的 CSS 入口文件。
 
+如果后续加入其他 Prettier 插件，通常把 `prettier-plugin-tailwindcss` 放在 `plugins` 数组最后，让它在最终阶段整理 Tailwind class 顺序。
+
 创建 `.prettierignore`：
 
 ```text
@@ -204,14 +198,25 @@ pnpm format
 
 ## 7. 创建全局样式
 
-创建或修改 `src/styles/globals.css`。如果 shadcn 初始化时已经写入了基础变量，不要整段删除，保留 shadcn 生成的内容，再合并项目自己的变量和字体配置。
+创建或修改 `src/styles/globals.css`。
+
+注意：如果 shadcn 初始化时已经写入了 `@import "tailwindcss";`、主题变量和基础样式，不要整段删除，也不要直接用下面的内容覆盖它。正确做法是：
+
+- 保留 shadcn 生成的 `globals.css`。
+- 确认文件顶部仍然有 `@import "tailwindcss";`。
+- 在 shadcn 生成内容的基础上追加项目需要的字体、窗口高度、滚动控制和少量业务变量。
+- 如果要改主题色，基于 shadcn 生成的 CSS 变量修改，不要重新发明一套完全不同的变量体系。
+
+如果文件里还没有 Tailwind 入口，先保证顶部有：
 
 ```css
 @import "tailwindcss";
+```
 
+然后在 shadcn 生成的变量基础上，追加“迹”自己的业务变量，例如：
+
+```css
 :root {
-  color-scheme: light;
-
   --background: #f6f7fb;
   --foreground: #172033;
   --panel: #ffffff;
@@ -228,8 +233,6 @@ pnpm format
 }
 
 .dark {
-  color-scheme: dark;
-
   --background: #111827;
   --foreground: #f3f4f6;
   --panel: #182131;
@@ -244,11 +247,11 @@ pnpm format
   --danger: #f87171;
   --ring: rgba(109, 141, 255, 0.35);
 }
+```
 
-* {
-  box-sizing: border-box;
-}
+再追加桌面应用需要的全局布局规则：
 
+```css
 html,
 body,
 #root {
@@ -268,16 +271,9 @@ body {
     "Segoe UI",
     sans-serif;
 }
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
 ```
 
-如果你选择完全使用 shadcn 默认主题，也可以先保留它生成的 CSS 变量，只追加 `body` 高度、字体和滚动控制。后续真正做主题切换时，再统一整理变量命名。
+如果你选择完全使用 shadcn 默认主题，也可以先只追加 `html/body/#root` 高度、`body` 滚动控制和字体配置。后续真正做主题切换时，再统一整理变量命名。
 
 在 `src/main.tsx` 引入全局样式：
 
@@ -372,6 +368,11 @@ pnpm dlx shadcn@latest add select popover dialog alert-dialog context-menu tabs
 - Radix UI 依赖由 shadcn 自动处理。
 - 组件源码仍然在项目里，后续可以按企业内部规范微调。
 
+这里要区分两类组件：
+
+- `Button`、`Input`、`Textarea`、`Badge`、`Tooltip`、`Separator` 属于基础 UI 组件，用 shadcn CLI 生成。
+- `AppTitleBar`、`AppLayout`、`MemoListPanel`、`MemoEditorPanel` 属于业务组件，需要自己写，因为它们承载的是“迹”的产品布局和业务语义。
+
 ## 10. 创建自定义标题栏
 
 桌面端建议使用自定义标题栏，这样 Windows 上的标题栏颜色可以和主题一致。
@@ -409,7 +410,13 @@ export function AppTitleBar() {
 }
 ```
 
-这里先只做 UI。真正的窗口最小化、最大化、关闭会在 Tauri 桌面能力章节中接入。
+这里先只做 UI，最小化、最大化、关闭按钮暂时不会真正操作窗口。真正的窗口控制会在 Tauri 桌面能力章节中接入。
+
+如果你希望在代码里明确标记，可以先加 TODO：
+
+```tsx
+// TODO: 在 Tauri 桌面能力章节中接入窗口最小化、最大化、关闭命令。
+```
 
 ## 11. 创建主布局
 
@@ -615,9 +622,9 @@ export function MemoEditorPanel() {
 修改 `src/App.tsx`：
 
 ```tsx
-import { AppLayout } from "./components/layout/app-layout";
-import { MemoEditorPanel } from "./features/memo/components/memo-editor-panel";
-import { MemoListPanel } from "./features/memo/components/memo-list-panel";
+import { AppLayout } from "@/components/layout/app-layout";
+import { MemoEditorPanel } from "@/features/memo/components/memo-editor-panel";
+import { MemoListPanel } from "@/features/memo/components/memo-list-panel";
 
 export default function App() {
   return <AppLayout list={<MemoListPanel />} detail={<MemoEditorPanel />} />;
@@ -627,10 +634,17 @@ export default function App() {
 启动前端：
 
 ```powershell
+pnpm format:check
 pnpm dev
 ```
 
-启动 Tauri：
+如果项目已经配置 `typecheck` 脚本，也执行：
+
+```powershell
+pnpm typecheck
+```
+
+启动 Tauri 桌面窗口：
 
 ```powershell
 pnpm tauri dev
@@ -646,6 +660,8 @@ pnpm tauri dev
 - 编辑区正文区域可以独立滚动。
 - 浅色主题下边框、分割线、按钮、输入框对比度清楚。
 - Windows 200% 缩放下，“Memo”“与我相关”“我的收藏”等文字不应该挤成竖排。
+- `pnpm format:check` 能通过。
+- 如果配置了 `typecheck`，`pnpm typecheck` 能通过。
 - `pnpm dev` 不应该出现 Tailwind CLI 相关错误。
 
 ## 16. 常见问题
