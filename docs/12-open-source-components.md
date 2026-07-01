@@ -17,6 +17,13 @@
 | Tooltip | Radix Tooltip | 只有图标的按钮说明 |
 | 图标 | lucide-react | 全应用统一图标来源 |
 
+## 代码格式化
+
+| 场景 | 推荐组件 | 用途 |
+|------|----------|------|
+| 代码格式化 | Prettier | 统一 TS、TSX、CSS、JSON、Markdown 格式 |
+| Tailwind class 排序 | prettier-plugin-tailwindcss | 自动整理 Tailwind class 顺序，减少人工维护 |
+
 ## 编辑器
 
 | 场景 | 推荐组件 | 用途 |
@@ -76,4 +83,3 @@
 - Memo 草稿保护策略。
 - 通知规则。
 - Tauri command 的业务封装。
-
